@@ -56,6 +56,8 @@ const MerchantDashboard = () => {
       { id: 'orders', label: 'Orders', icon: FileText },
       { id: 'products', label: 'Products', icon: Package },
       { id: 'customers', label: 'Customers', icon: Users },
+      { id: 'coupons', label: 'Coupons', icon: DollarSign },
+      { id: 'shipping', label: 'Shipping', icon: TrendingUp },
       { id: 'ab-test', label: 'A/B Testing', icon: Zap },
       { id: 'settings', label: 'Settings', icon: Settings },
   ];
@@ -365,6 +367,111 @@ const MerchantDashboard = () => {
                                          {settings.showFomo ? <ToggleRight className="w-10 h-10" /> : <ToggleLeft className="w-10 h-10" />}
                                      </button>
                                  </div>
+                             </div>
+                         </div>
+                     </div>
+                 )}
+
+                 {activeTab === 'coupons' && (
+                     <div className="space-y-8">
+                         <div className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden">
+                             <div className="p-6 border-b border-white/10 flex justify-between items-center">
+                                 <h3 className="font-bold text-xl">Coupon Management</h3>
+                                 <Button size="sm" className="flex items-center gap-2">
+                                    <Plus className="w-4 h-4" /> Create Coupon
+                                 </Button>
+                             </div>
+                             <table className="w-full text-left">
+                                 <thead className="bg-white/5 text-gray-400 text-xs uppercase tracking-wider">
+                                     <tr>
+                                         <th className="p-4">Code</th>
+                                         <th className="p-4">Discount</th>
+                                         <th className="p-4">Usage</th>
+                                         <th className="p-4">Expires</th>
+                                         <th className="p-4">Status</th>
+                                         <th className="p-4 text-right">Actions</th>
+                                     </tr>
+                                 </thead>
+                                 <tbody className="divide-y divide-white/5">
+                                     {[
+                                       { code: 'WELCOME15', discount: '15% off', usage: '234/500', expires: 'Jan 31, 2026', status: 'Active' },
+                                       { code: 'NEWYEAR25', discount: '25% off', usage: '89/100', expires: 'Jan 15, 2026', status: 'Active' },
+                                       { code: 'FLASH50', discount: '$50 off', usage: '50/50', expires: 'Dec 31, 2025', status: 'Expired' },
+                                       { code: 'VIP20', discount: '20% off', usage: '∞', expires: 'Never', status: 'Active' },
+                                     ].map(coupon => (
+                                         <tr key={coupon.code} className="hover:bg-white/5 transition-colors">
+                                             <td className="p-4 font-mono text-secondary">{coupon.code}</td>
+                                             <td className="p-4 font-bold">{coupon.discount}</td>
+                                             <td className="p-4 text-gray-400">{coupon.usage}</td>
+                                             <td className="p-4 text-gray-400">{coupon.expires}</td>
+                                             <td className="p-4">
+                                                 <span className={`px-2 py-1 rounded text-xs font-bold ${coupon.status === 'Active' ? 'bg-green-500/20 text-green-400' : 'bg-gray-500/20 text-gray-400'}`}>
+                                                     {coupon.status}
+                                                 </span>
+                                             </td>
+                                             <td className="p-4 text-right flex justify-end gap-2">
+                                                 <button className="p-2 hover:bg-white/10 rounded-lg text-gray-400 hover:text-white transition-colors">
+                                                   <Edit className="w-4 h-4" />
+                                                 </button>
+                                                 <button className="p-2 hover:bg-white/10 rounded-lg text-gray-400 hover:text-red-400 transition-colors">
+                                                   <Trash2 className="w-4 h-4" />
+                                                 </button>
+                                             </td>
+                                         </tr>
+                                     ))}
+                                 </tbody>
+                             </table>
+                         </div>
+                     </div>
+                 )}
+
+                 {activeTab === 'shipping' && (
+                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                         <div className="bg-white/5 border border-white/10 p-8 rounded-2xl">
+                             <h3 className="font-bold text-xl mb-6">Shipping Methods</h3>
+                             <div className="space-y-4">
+                                 {[
+                                   { name: 'Standard Shipping', time: '5-7 business days', price: '$9.99', enabled: true },
+                                   { name: 'Express Shipping', time: '2-3 business days', price: '$19.99', enabled: true },
+                                   { name: 'Next Day Delivery', time: '1 business day', price: '$29.99', enabled: true },
+                                   { name: 'Free Shipping', time: '7-10 business days', price: 'Orders $250+', enabled: true },
+                                 ].map(method => (
+                                   <div key={method.name} className="bg-white/5 p-4 rounded-xl flex justify-between items-center">
+                                       <div>
+                                           <h4 className="font-bold">{method.name}</h4>
+                                           <p className="text-xs text-gray-500">{method.time}</p>
+                                       </div>
+                                       <div className="flex items-center gap-4">
+                                         <span className="font-mono text-secondary">{method.price}</span>
+                                         <button className={`transition-colors ${method.enabled ? 'text-green-500' : 'text-gray-600'}`}>
+                                             {method.enabled ? <ToggleRight className="w-8 h-8" /> : <ToggleLeft className="w-8 h-8" />}
+                                         </button>
+                                       </div>
+                                   </div>
+                                 ))}
+                             </div>
+                         </div>
+
+                         <div className="bg-white/5 border border-white/10 p-8 rounded-2xl">
+                             <h3 className="font-bold text-xl mb-6">Shipping Zones</h3>
+                             <div className="space-y-4">
+                                 {[
+                                   { zone: 'United States', rates: 'All methods available', orders: 1245 },
+                                   { zone: 'Europe (EU)', rates: 'Express, Standard', orders: 456 },
+                                   { zone: 'Canada', rates: 'Standard only', orders: 234 },
+                                   { zone: 'International', rates: 'Standard only', orders: 89 },
+                                 ].map(zone => (
+                                   <div key={zone.zone} className="bg-white/5 p-4 rounded-xl flex justify-between items-center">
+                                       <div>
+                                           <h4 className="font-bold">{zone.zone}</h4>
+                                           <p className="text-xs text-gray-500">{zone.rates}</p>
+                                       </div>
+                                       <div className="text-right">
+                                         <span className="font-mono text-sm">{zone.orders} orders</span>
+                                         <button className="block text-xs text-secondary hover:underline mt-1">Edit Zone</button>
+                                       </div>
+                                   </div>
+                                 ))}
                              </div>
                          </div>
                      </div>

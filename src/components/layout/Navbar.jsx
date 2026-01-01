@@ -50,6 +50,9 @@ export const Navbar = () => {
             <Link to="/account" className="text-sm font-medium text-luxury hover:text-accent transition-colors">
               Account
             </Link>
+            <Link to="/support" className="text-sm font-medium text-luxury hover:text-accent transition-colors">
+              Support
+            </Link>
           </div>
 
           {/* Actions */}

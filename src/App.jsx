@@ -14,6 +14,8 @@ const MerchantDashboard = React.lazy(() => import('./pages/MerchantDashboard'));
 const Wishlist = React.lazy(() => import('./pages/Wishlist'));
 const CartPage = React.lazy(() => import('./pages/CartPage'));
 const AdminLogin = React.lazy(() => import('./pages/admin/AdminLogin'));
+const UserAuth = React.lazy(() => import('./pages/UserAuth'));
+const Support = React.lazy(() => import('./pages/Support'));
 
 const ScrollToTop = () => {
     const { pathname } = useLocation();
@@ -44,6 +46,8 @@ function App() {
               <Route path="/cart" element={<CartPage />} />
               <Route path="/account" element={<Account />} />
               <Route path="/wishlist" element={<Wishlist />} />
+              <Route path="/login" element={<UserAuth />} />
+              <Route path="/support" element={<Support />} />
               <Route path="/admin/dashboard" element={<MerchantDashboard />} />
             </Routes>
         </Suspense>
